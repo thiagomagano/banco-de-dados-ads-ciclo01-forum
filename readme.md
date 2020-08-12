@@ -22,13 +22,16 @@ Modelei o banco movie_database em 6 Tabelas:
 
 Dentro do shell do Mysql ou utilizando o PhpMyAdmin na parte de "SQL":
 
-<code>CREATE DATABASE movie_database;</code>
+```SQL
+CREATE DATABASE movie_database;
+```
 
 ## 2 - Criando as Tabelas
 
 Script que fiz para a criação das Tabelas:
 
-<code>USE movie_database;
+```SQL 
+USE movie_database;
 CREATE TABLE movies (
   id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   title VARCHAR(255) NOT NULL,
@@ -60,12 +63,14 @@ CREATE TABLE movie_genres (
   genre_id int NOT NULL,
   FOREIGN KEY (movie_id) REFERENCES movies(id),
   FOREIGN KEY (genre_id) REFERENCES genres(id)
-);</code>
+);
+```
 
 ## 3 - Inserindo os dados
 Script que utilizei para popular o banco com dados.
 
-<code>/* Criando Filmes */
+```SQL
+/* Criando Filmes */
 INSERT INTO movies
 VALUES ("A Volta Dos Que Não Foram", 2018);
 INSERT INTO movies
@@ -76,6 +81,7 @@ INSERT INTO movies
 VALUES ("Um Programador Muito Louco", 2022);
 INSERT INTO movies
 VALUES ("MYSQL x Postgress", 2020);
+
 /* Criando gêneros */
 INSERT INTO genres (label)
 VALUES ("Ação");
@@ -87,6 +93,7 @@ INSERT INTO genres (label)
 VALUES ("Documentário");
 INSERT INTO genres (label)
 VALUES ("Terror");
+
 /* Relacionando generos e filmes */
 INSERT INTO movie_genres (movie_id, genre_id)
 VALUES (1, 1);
@@ -100,6 +107,7 @@ INSERT INTO movie_genres (movie_id, genre_id)
 VALUES (4, 2);
 INSERT INTO movie_genres (movie_id, genre_id)
 VALUES (5, 4);
+
 /* Criando pessoas */
 INSERT INTO people (firstName, lastName)
 VALUES ("John", "Doe");
@@ -117,6 +125,7 @@ INSERT INTO people (firstName, lastName)
 VALUES ("Thiago", "Magano");
 INSERT INTO people (firstName, lastName)
 VALUES ("Corona Virus", "Covid19");
+
 /* Criando Papeis */
 INSERT INTO role_types(label)
 VALUES("Ator");
@@ -124,7 +133,9 @@ INSERT INTO role_types(label)
 VALUES("Diretor");
 INSERT INTO role_types(label)
 VALUES("Roteirista");
+
 /* Criando Equipes */
+
 /* A volta dos que não foram */
 INSERT INTO casting (movie_id, people_id, movie_role_id)
 VALUES(1, 1, 1);
@@ -132,6 +143,7 @@ INSERT INTO casting (movie_id, people_id, movie_role_id)
 VALUES(1, 1, 2);
 INSERT INTO casting (movie_id, people_id, movie_role_id)
 VALUES(1, 1, 3);
+
 /* A Cura */
 INSERT INTO casting (movie_id, people_id, movie_role_id)
 VALUES(2, 3, 1);
@@ -139,6 +151,7 @@ INSERT INTO casting (movie_id, people_id, movie_role_id)
 VALUES(2, 2, 2);
 INSERT INTO casting (movie_id, people_id, movie_role_id)
 VALUES(2, 8, 3);
+
 /* Pandemia */
 INSERT INTO casting (movie_id, people_id, movie_role_id)
 VALUES(3, 8, 1);
@@ -146,6 +159,7 @@ INSERT INTO casting (movie_id, people_id, movie_role_id)
 VALUES(3, 8, 2);
 INSERT INTO casting (movie_id, people_id, movie_role_id)
 VALUES(3, 8, 3);
+
 /* Um programador muito louco */
 INSERT INTO casting (movie_id, people_id, movie_role_id)
 VALUES(4, 7, 1);
@@ -153,6 +167,7 @@ INSERT INTO casting (movie_id, people_id, movie_role_id)
 VALUES(4, 7, 2);
 INSERT INTO casting (movie_id, people_id, movie_role_id)
 VALUES(4, 7, 3);
+
 /* Mysql x Postgress */
 INSERT INTO casting (movie_id, people_id, movie_role_id)
 VALUES(5, 4, 1);
@@ -161,7 +176,8 @@ VALUES(5, 6, 1);
 INSERT INTO casting (movie_id, people_id, movie_role_id)
 VALUES(5, 5, 2);
 INSERT INTO casting (movie_id, people_id, movie_role_id)
-VALUES(5, 5, 3);</code>
+VALUES(5, 5, 3);
+```
 
 > OBS: Todos os dados são fícticios (não liguem para os eastereggs rs)
 
@@ -169,7 +185,8 @@ VALUES(5, 5, 3);</code>
 Crie duas consultas no banco:
 
 ##### 1 - Retornar todos os filmes e seus gêneros.
-<code>SELECT title as Título,
+```SQL
+SELECT title as Título,
   label as Gênero,
   relesead_year as Ano_do_Lançamento
 FROM (
@@ -178,9 +195,12 @@ FROM (
       INNER JOIN genres on genres.id = movie_genres.genre_id
     )
     INNER JOIN movies on movies.id = movie_genres.movie_id
-  );</code>
+  );
+```
 ##### 2 - Retornar toda equipe e ordenar pelo título do filme
-<code>SELECT title as Título,
+
+```SQL
+SELECT title as Título,
   firstName as Nome,
   lastName as Sobrome,
   label as Papel
@@ -194,7 +214,8 @@ FROM (
     )
     INNER JOIN role_types on role_types.id = casting.movie_role_id
   )
-ORDER BY movies.id;</code>
+ORDER BY movies.id;
+```
 
 ## Conclusão
 
