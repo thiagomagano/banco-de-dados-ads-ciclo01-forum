@@ -220,5 +220,3 @@ ORDER BY movies.id;
 ## Conclusão
 
 Criei um repositório do GitHub com o backkup do banco de dados já criado e também os scripts SQL que usei para quem quiser dar uma olhada tudo em funcionando diretamente no MYSQL.
-
-https://github.com/thiagomagano/banco-de-dados-ads-ciclo01-forum
